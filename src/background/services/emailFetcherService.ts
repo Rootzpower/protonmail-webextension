@@ -86,7 +86,8 @@ export class EmailFetcherService {
                         notificationService.notify(account.email, messages);
                     }
 
-                    if (eventResponse.Unread !== undefined) {
+                    if (eventResponse.Unread !== undefined &&
+                        Array.isArray((eventResponse.Unread as any).Locations)) {
                         for (const unread of eventResponse.Unread.Locations) {
                             if (unread.Location === DefaultLabels.Inbox) {
                                 logger.debug(`got ${unread.Count} unread messages for ${account.email} from event`);
@@ -116,21 +117,6 @@ export class EmailFetcherService {
                         }
                     }
 
-                    if (state.lastUnreadCount === -1) {
-                        logger.debug(`fetching latest messages count for ${account.email}`);
-                        const unreadCountResponse = await client.messages.count();
-
-                        for (const count of unreadCountResponse.Counts) {
-                            if (count.LabelID === `${DefaultLabels.Inbox}`) {
-                                logger.debug(`got ${count.Unread} unread messages for ${account.email}`);
-                                backgroundStore.dispatch(rootAction.accounts.editAccount(account.email, {
-                                    unreadCount: count.Unread,
-                                }));
-                                state.lastUnreadCount = count.Unread;
-                            }
-                        }
-                    }
-
                     if (state.lastViewMode === -1) {
                         logger.debug(`fetching view mode for ${account.email}`);
                         const settingsResponse = await client.request({
@@ -153,6 +139,25 @@ export class EmailFetcherService {
 
                     if (eventResponse.More !== 1) {
                         break;
+                    }
+                }
+
+                // The event stream no longer reliably carries the unread count, so refresh it
+                // explicitly once per pulse instead of only when lastUnreadCount === -1.
+                logger.debug(`fetching latest messages count for ${account.email}`);
+                const unreadCountResponse = await client.messages.count();
+                for (const count of unreadCountResponse.Counts) {
+                    if (count.LabelID === `${DefaultLabels.Inbox}`) {
+                        logger.debug(`got ${count.Unread} unread messages for ${account.email}`);
+                        backgroundStore.dispatch(rootAction.accounts.editAccount(account.email, {
+                            unreadCount: count.Unread,
+                        }));
+                        if (state.lastUnreadCount !== -1 &&
+                            state.lastUnreadCount < count.Unread &&
+                            backgroundStore.getState().peek.email === account.email) {
+                            this.peek(account.email, false);
+                        }
+                        state.lastUnreadCount = count.Unread;
                     }
                 }
             } catch (error) {

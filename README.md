@@ -23,7 +23,9 @@ Current plugins available as extensions are now working because the ProtonMail c
 run `npm i && npm run build:firefox` or `npm i && npm run build:chromium`. Extension will compile to ./build, run `npm run deploy` to create the packed extensions zip.
 
 Notes:
-- The toolchain is old (`react-scripts` 3.2, `node-sass` 4, webpack 4). On a recent Node.js the build may fail unless you set `NODE_OPTIONS=--openssl-legacy-provider`, and `node-sass` may not compile at all.
+- The lockfile pins `node-sass` 4.12.0, which only works with Node.js 12 (tested with 12.22.12). On newer Node.js versions the interface build fails.
+- Windows: `scripts/Build-Release.ps1` downloads a portable Node.js 12 into `.tools/` (ignored by git), builds the Firefox extension and creates `release/<version>/firefox-<version>.zip` and `source-<version>.zip`, ready to upload to addons.mozilla.org. It needs `git`, `web-ext` (installed globally) and a clean working tree. Use it instead of `npm run deploy`: the source zip made by `deploy` also picks up untracked folders such as `.tools/`.
+- `.gitattributes` forces LF line endings. Some source files are embedded in `background.js` at build time, so a CRLF checkout (the default of Git for Windows) produces a slightly different build.
 - `npm run deploy` refuses to run with uncommitted changes.
 
 ## Installing in Firefox

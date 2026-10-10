@@ -26,3 +26,7 @@ yarn-error.log*
 TODO.md
 /misc
 .env
+
+# Local tooling and release output (see scripts/Build-Release.ps1)
+/.tools
+/release

@@ -1,0 +1,8 @@
+# Keep LF line endings in the working tree on every platform. The build embeds
+# some source files (content scripts) into background.js, so CRLF checkouts
+# produce a different (byte-wise) build than the one a reviewer gets on Linux.
+* text=auto eol=lf
+
+*.png binary
+*.zip binary
+*.xpi binary

@@ -29,9 +29,9 @@ Notes:
 ## Installing in Firefox
 Release and Beta versions of Firefox only install signed extensions. The build output is **not** signed, so you have these options:
 
-- Load it temporarily from `about:debugging#/runtime/this-firefox` ("Load Temporary Add-on"). It is removed when Firefox closes.
-- Use Firefox Developer Edition, Nightly or ESR with `xpinstall.signatures.required` set to `false` in `about:config`.
-- Sign it yourself as an unlisted add-on (free, nothing is published). Step by step guide: [docs/SIGNING.md](docs/SIGNING.md).
+- **Recommended: sign it yourself as an unlisted add-on.** It is free, nothing is published, and the signed `.xpi` installs permanently in regular Firefox. Step by step guide: [docs/SIGNING.md](docs/SIGNING.md). Every new version needs a higher version number and a new signature.
+- Use Firefox Developer Edition, Nightly or ESR with `xpinstall.signatures.required` set to `false` in `about:config`. This setting is ignored in Release and Beta.
+- Load it temporarily from `about:debugging#/runtime/this-firefox` ("Load Temporary Add-on"). Good for testing only: it is removed when Firefox closes.
 
 ## Disclaimer
 This is an unofficial extension and is not affiliated with Proton AG. It reads your ProtonMail session data (cookies and requests to `mail.proton.me`) in order to work.

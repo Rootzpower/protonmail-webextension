@@ -88,6 +88,9 @@ function generateManifest() {
         manifest.browser_specific_settings = {
             gecko: {
                 id: "protonmail-webextension@local",
+                data_collection_permissions: {
+                    required: ["none"],
+                },
             },
         };
     }

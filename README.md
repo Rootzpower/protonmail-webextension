@@ -31,7 +31,7 @@ Release and Beta versions of Firefox only install signed extensions. The build o
 
 - Load it temporarily from `about:debugging#/runtime/this-firefox` ("Load Temporary Add-on"). It is removed when Firefox closes.
 - Use Firefox Developer Edition, Nightly or ESR with `xpinstall.signatures.required` set to `false` in `about:config`.
-- Sign it yourself as an unlisted add-on with [`web-ext sign --channel=unlisted`](https://extensionworkshop.com/documentation/develop/web-ext-command-reference/#web-ext-sign) (requires a Mozilla developer account and API keys). Every new version needs a higher version number and a new signature.
+- Sign it yourself as an unlisted add-on (free, nothing is published). Step by step guide: [docs/SIGNING.md](docs/SIGNING.md).
 
 ## Disclaimer
 This is an unofficial extension and is not affiliated with Proton AG. It reads your ProtonMail session data (cookies and requests to `mail.proton.me`) in order to work.

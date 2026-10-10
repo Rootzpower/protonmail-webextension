@@ -83,6 +83,15 @@ function generateManifest() {
         };
     }
 
+    if (platform === "firefox") {
+        // Fixed add-on ID: signed versions only replace the installed one if the ID stays the same.
+        manifest.browser_specific_settings = {
+            gecko: {
+                id: "protonmail-webextension@local",
+            },
+        };
+    }
+
     fs.writeFileSync("./build/manifest.json", JSON.stringify(manifest, null, 4));
 }
 

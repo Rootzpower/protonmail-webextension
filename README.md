@@ -6,14 +6,14 @@ Browser extension that lists your ProtonMail accounts, shows the unread count as
 
 This repository is a fork of [Scallywer/protonmail-webextension](https://github.com/Scallywer/protonmail-webextension), which is itself a fork of the original [gitladen7/protonmail-webextension](https://github.com/gitladen7/protonmail-webextension). The original authorship and commit history are preserved.
 
-## Changes in this fork (version 1.20.3)
+## Changes in this fork (version 1.20.4)
 
 - **Unread badge fixed.** The unread count is now fetched explicitly once per check (`src/background/services/emailFetcherService.ts`). Previously it was only requested on the first load and afterwards depended on the `Unread.Locations` field of the event stream, which the ProtonMail API no longer reliably sends, so the badge stayed stale or empty. The legacy event branch is now guarded so that an unexpected payload can no longer abort the whole check.
 - **`.onion` domain removed.** `src/shared/protonDomains.js` now only lists `mail.proton.me`.
 - **New icon set.** All files in `public/icons/` were replaced (PNG sizes, light/dark SVG and `logo-152.png`).
 - **Firefox package.** The Firefox build uses SVG icons with light/dark variants and a fixed add-on ID in `browser_specific_settings`.
 
-Only the Firefox package of this version was tested. The Chromium build was not rebuilt for 1.20.3.
+Only the Firefox package of this version was tested. The Chromium build was not rebuilt for 1.20.4.
 
 ## Download
 Please build your own or if you insist, you can download the compiled zips from the root folder. Those zips are the ones published by the previous maintainers and do not include the changes listed above.

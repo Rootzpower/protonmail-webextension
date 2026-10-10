@@ -16,7 +16,7 @@ This repository is a fork of [Scallywer/protonmail-webextension](https://github.
 Only the Firefox package of this version was tested. The Chromium build was not rebuilt for 1.20.4.
 
 ## Download
-Please build your own or if you insist, you can download the compiled zips from the root folder. Those zips are the ones published by the previous maintainers and do not include the changes listed above.
+There are no prebuilt packages in this repository, please build your own (see below). The compiled zips published by the previous maintainers were removed from the working tree, they are still available in the git history.
 Current plugins available as extensions are now working because the ProtonMail changed the domain.
 
 ## Building

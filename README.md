@@ -11,7 +11,10 @@ This repository is a fork of [Scallywer/protonmail-webextension](https://github.
 - **Unread badge fixed.** The unread count is now fetched explicitly once per check (`src/background/services/emailFetcherService.ts`). Previously it was only requested on the first load and afterwards depended on the `Unread.Locations` field of the event stream, which the ProtonMail API no longer reliably sends, so the badge stayed stale or empty. The legacy event branch is now guarded so that an unexpected payload can no longer abort the whole check.
 - **`.onion` domain removed.** `src/shared/protonDomains.js` now only lists `mail.proton.me`.
 - **New icon set.** All files in `public/icons/` were replaced (PNG sizes, light/dark SVG and `logo-152.png`).
-- **Firefox package.** The Firefox build uses SVG icons with light/dark variants and a fixed add-on ID in `browser_specific_settings`.
+- **Firefox manifest.** The Firefox build uses SVG icons with light/dark variants, a fixed add-on ID and declares `data_collection_permissions` as `none` in `browser_specific_settings` (`scripts/manifest.js`). The extension homepage now points to this fork.
+- **Version in the settings.** The version shown in the extension settings matches the release, it is read from `package.json` when building.
+- **Reproducible builds.** `.gitattributes` forces LF line endings and `scripts/Build-Release.ps1` builds the release packages with a portable Node.js 12 (see Building). Signing and uploading to addons.mozilla.org is described in [docs/SIGNING.md](docs/SIGNING.md).
+- **Prebuilt zips removed** from the working tree (still in the git history).
 
 Only the Firefox package of this version was tested. The Chromium build was not rebuilt for 1.20.4.
 
